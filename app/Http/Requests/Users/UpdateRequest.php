@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Users;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Auth;
 
 class UpdateRequest extends FormRequest
 {
@@ -13,6 +14,14 @@ class UpdateRequest extends FormRequest
      */
     public function authorize()
     {
+        // added by akkam to handle api updateRequest
+        if(auth('api')->check()){
+            return auth('api')->user()->can(
+                'edit', $this->route('user')
+            );        
+        }
+        ///////////
+        
         return $this->user()->can(
             'edit', $this->route('user')
         );

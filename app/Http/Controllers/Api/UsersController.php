@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
 use App\Couple;
 use App\Http\Requests\Users\UpdateRequest;
@@ -11,9 +11,20 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Ramsey\Uuid\Uuid;
 use Storage;
+use App\Http\Controllers\Controller;
 
 class UsersController extends Controller
 {
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth:api', ['except' => ['login']]);
+    }
+
     /**
      * Search user by keyword.
      *
@@ -21,6 +32,7 @@ class UsersController extends Controller
      */
     public function search(Request $request)
     {
+        
         $q = $request->get('q');
         $users = [];
 
@@ -32,7 +44,7 @@ class UsersController extends Controller
                 ->orderBy('name', 'asc')
                 ->paginate(24);
         }
-
+        dd($users) ;
         return view('users.search', compact('users'));
     }
 
@@ -48,7 +60,7 @@ class UsersController extends Controller
         $allMariageList = $this->getAllMariageList();
         $malePersonList = $this->getPersonList(1);
         $femalePersonList = $this->getPersonList(2);
-
+        dd($user) ;
         return view('users.show', [
             'user'             => $user,
             'usersMariageList' => $usersMariageList,
@@ -80,7 +92,7 @@ class UsersController extends Controller
         $colspan = $colspan < 4 ? 4 : $colspan;
 
         $siblings = $user->siblings();
-
+        dd($user) ;
         return view('users.chart', compact(
             'user', 'childs', 'father', 'mother', 'fatherGrandpa',
             'fatherGrandma', 'motherGrandpa', 'motherGrandma',
@@ -96,6 +108,7 @@ class UsersController extends Controller
      */
     public function tree(User $user)
     {
+        dd($user) ;
         return view('users.tree', compact('user'));
     }
 
@@ -110,7 +123,7 @@ class UsersController extends Controller
         $mapZoomLevel = config('leaflet.detail_zoom_level');
         $mapCenterLatitude = $user->getMetadata('cemetery_location_latitude');
         $mapCenterLongitude = $user->getMetadata('cemetery_location_longitude');
-
+        dd($user) ;
         return view('users.death', compact('user', 'mapZoomLevel', 'mapCenterLatitude', 'mapCenterLongitude'));
     }
 
@@ -154,6 +167,7 @@ class UsersController extends Controller
      */
     public function update(UpdateRequest $request, User $user)
     {
+        dd($request) ;
         $userAttributes = $request->validated();
         $user->update($userAttributes);
         $userAttributes = collect($userAttributes);
@@ -172,6 +186,8 @@ class UsersController extends Controller
      */
     public function destroy(Request $request, User $user)
     {
+        dd($request) ;
+
         $this->authorize('delete', $user);
 
         if ($request->has('replace_delete_button')) {
@@ -206,6 +222,7 @@ class UsersController extends Controller
      */
     public function photoUpload(Request $request, User $user)
     {
+        dd($request);
         $request->validate([
             'photo' => 'required|image|max:200',
         ]);

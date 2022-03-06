@@ -24,8 +24,47 @@ $api->version('v1', ['middleware' => ['api']], function($api) {
             $api->post('logout', 'Auth\AuthController@logout');
             $api->post('refresh', 'Auth\AuthController@refresh');
             $api->post('me', 'Auth\AuthController@me');
+        });
 
+        $api->group([
+            'prefix' => 'auth'
+        ], function ($api) {
             $api->post('register', 'Auth\AuthController@create');
+        });
+
+        $api->group([
+        ], function ($api) {
+            $api->get('users/profile-search', 'UsersController@search');
+            $api->get('users/{user}', 'UsersController@show');
+            $api->get('users/{user}/chart', 'UsersController@chart') ;
+            $api->get('users/{user}/tree', 'UsersController@tree') ;
+            $api->get('users/{user}/death', 'UsersController@death') ;
+            $api->patch('users/{user}/photo-upload', 'UsersController@photoUpload') ;
+            $api->patch('users/{user}', 'UsersController@update') ;
+            $api->delete('users/{user}', 'UsersController@destroy') ;
+            $api->patch('users/{user}/photo-upload', 'UsersController@photoUpload');
+        });
+
+        $api->group([
+        ], function ($api) {
+            $api->get('users/{user}/marriages', 'UserMarriagesController@index') ;
+        });
+
+        $api->group([
+        ], function ($api) {
+            $api->get('couples/{couple}', 'CouplesController@show');
+            $api->patch('couples/{couple}', 'CouplesController@update');
+        });
+
+        $api->group([
+        ], function ($api) {
+            $api->post('family-actions/{user}/set-father', 'FamilyActionsController@setFather');
+            $api->post('family-actions/{user}/set-mother', 'FamilyActionsController@setMother');
+            $api->post('family-actions/{user}/add-child', 'FamilyActionsController@addChild');
+            $api->post('family-actions/{user}/add-wife', 'FamilyActionsController@addWife');
+            $api->post('family-actions/{user}/add-husband', 'FamilyActionsController@addHusband');
+            $api->post('family-actions/{user}/set-parent', 'FamilyActionsController@setParent');
+            
         });
 
     });

@@ -29,7 +29,7 @@ $api->version('v1', ['middleware' => ['api']], function($api) {
         $api->group([
             'prefix' => 'auth'
         ], function ($api) {
-            $api->post('register', 'Auth\AuthController@create');
+            $api->post('register', 'Auth\AuthController@register');
         });
 
         $api->group([

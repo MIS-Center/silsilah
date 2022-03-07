@@ -8,7 +8,7 @@ use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Validator;
 use Ramsey\Uuid\Uuid;
 use Illuminate\Http\Request;
-
+use JWTAuth;
 class AuthController extends Controller
 {
     /*
@@ -39,7 +39,7 @@ class AuthController extends Controller
     public function __construct()
     {
         // $this->middleware('guest');
-        $this->middleware('auth:api', ['except' => ['login']]);
+        $this->middleware('auth:api', ['except' => ['login','register']]);
     }
 
     /**
@@ -83,7 +83,16 @@ class AuthController extends Controller
         $user->manager_id = $user->id;
         $user->save();
 
-        return $user;
+        $credentials = ['email'=>$data['email'], 'password'=> $data['password']];
+        // dd($credentials);
+        $token = JWTAuth::attempt($credentials);
+
+        $success['token'] = $token;
+        return response()->json([
+          'success' => true,
+          'token' => $success,
+          'user' => $user
+        ]);
     }
 
     

@@ -167,12 +167,18 @@ class UsersController extends Controller
      */
     public function update(UpdateRequest $request, User $user)
     {
-        dd($request) ;
+        //dd($request) ;
         $userAttributes = $request->validated();
         $user->update($userAttributes);
         $userAttributes = collect($userAttributes);
 
         $this->updateUserMetadata($user, $userAttributes);
+
+        return response()->json([
+            'success' => true,
+            'message' => "user has been updated successfuly",
+            'user' => $user
+          ]);
 
         return redirect()->route('users.show', $user->id);
     }
@@ -186,7 +192,7 @@ class UsersController extends Controller
      */
     public function destroy(Request $request, User $user)
     {
-        dd($request) ;
+        // dd($request) ;
 
         $this->authorize('delete', $user);
 
@@ -198,6 +204,11 @@ class UsersController extends Controller
             ]);
 
             $this->dispatchNow(new DeleteAndReplaceUser($user, $attributes['replacement_user_id']));
+
+            return response()->json([
+                'success' => true,
+                'message' => "user has been deleted successfuly"
+              ]);
 
             return redirect()->route('users.show', $attributes['replacement_user_id']);
         }
@@ -222,7 +233,7 @@ class UsersController extends Controller
      */
     public function photoUpload(Request $request, User $user)
     {
-        dd($request);
+        // dd($request);
         $request->validate([
             'photo' => 'required|image|max:200',
         ]);
@@ -233,6 +244,12 @@ class UsersController extends Controller
 
         $user->photo_path = $request->photo->store('images');
         $user->save();
+
+        return response()->json([
+            'success' => true,
+            'message' => "user image has been updated successfuly",
+            'user' => $user
+          ]);
 
         return back();
     }

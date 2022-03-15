@@ -42,7 +42,7 @@ $api->version('v1', ['middleware' => ['api']], function($api) {
             $api->patch('users/{user}/photo-upload', 'UsersController@photoUpload') ;
             $api->patch('users/{user}', 'UsersController@update') ;
             $api->delete('users/{user}', 'UsersController@destroy') ;
-            $api->patch('users/{user}/photo-upload', 'UsersController@photoUpload');
+            $api->post('users/{user}/photo-upload', 'UsersController@photoUpload');
         });
 
         $api->group([

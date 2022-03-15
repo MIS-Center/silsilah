@@ -233,11 +233,11 @@ class UsersController extends Controller
      */
     public function photoUpload(Request $request, User $user)
     {
-        // dd($request);
-        $request->validate([
-            'photo' => 'required|image|max:200',
-        ]);
-
+        // dd($request->file('photo'));
+        // $request->validate([
+        //     'photo' => 'required|image|max:200',
+        // ]);
+        dd($user->photo_path) ;
         if (Storage::exists($user->photo_path)) {
             Storage::delete($user->photo_path);
         }

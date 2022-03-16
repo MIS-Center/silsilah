@@ -237,7 +237,7 @@ class UsersController extends Controller
         // $request->validate([
         //     'photo' => 'required|image|max:200',
         // ]);
-        dd($user->photo_path) ;
+        // dd($user->photo_path) ;
         if (Storage::exists($user->photo_path)) {
             Storage::delete($user->photo_path);
         }

@@ -96,6 +96,56 @@ class UsersController extends Controller
      */
     public function tree(User $user)
     {
+    //    dd($user->name , $user->parent) ;
+        return view('users.tree', compact('user'));
+    }
+
+    /**
+     * Show user absolute family tree. 
+     *
+     * @param  \App\User  $user
+     * @return \Illuminate\View\View
+     */
+    public function absoluteTree(User $user)
+    {
+
+        $fathers = [] ;
+        $mothers = [] ;
+        $children = [] ;
+
+        $f = $user->father;
+        $m = $user->mother;
+        $childs = $user->childs;
+
+        while( !empty($f) ){
+            array_push($fathers,$f) ;
+            $f = $f->father;
+        }
+
+        while( !empty($m) ){
+            array_push($mothers,$m) ;
+            $m = $m->mother;
+        }
+
+        foreach($childs as $child){
+            array_push($children,$child) ;
+        }
+
+        $var = [
+            'user' => $user,
+            'fathers' => $fathers,
+            'mothers' => $mothers,
+            'children' => $children
+        ];
+
+        return $var;
+
+        dd(  $var  ) ;
+
+        dd( end($fathers)->name ) ;
+
+        dd($user->name , $user->father->father->father->name) ;
+        
         return view('users.tree', compact('user'));
     }
 

@@ -108,7 +108,7 @@ class UsersController extends Controller
      */
     public function tree(User $user)
     {
-        dd($user) ;
+        dd("tree" . $user) ;
         return view('users.tree', compact('user'));
     }
 

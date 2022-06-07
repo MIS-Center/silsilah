@@ -124,10 +124,14 @@ class UsersController extends Controller
 
         $f = $user->father;
         $m = $user->mother;
+        $grand_father = $user ;
 
         while( !empty($f) ){
             array_push($fathers,$f) ;
             $f = $f->father;
+            if(!empty($f)){
+                $grand_father = $f;
+            }
         }
 
         while( !empty($m) ){
@@ -135,7 +139,7 @@ class UsersController extends Controller
             $m = $m->mother;
         }
 
-        $this->findChilds($user) ;
+        $this->findChilds($grand_father) ;
 
         $tree = [
             'user' => $user,

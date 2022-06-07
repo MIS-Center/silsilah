@@ -94,28 +94,36 @@ class UsersController extends Controller
      * @param  \App\User  $user
      * @return \Illuminate\View\View
      */
-    public function tree(User $user)
+    public function absoluteTree(User $user)
     {
     //    dd($user->name , $user->parent) ;
         return view('users.tree', compact('user'));
     }
 
+    public $grand_children = [] ;
+
+    function findChilds(User $user){
+        $childs = $user->childs;
+        foreach($childs as $child){
+            array_push($this->grand_children,$child);
+            $this->findChilds( $child ) ;
+        }
+    }
+
+    
     /**
      * Show user absolute family tree. 
      *
      * @param  \App\User  $user
      * @return \Illuminate\View\View
      */
-    public function absoluteTree(User $user)
+    public function tree(User $user)
     {
-
         $fathers = [] ;
         $mothers = [] ;
-        $children = [] ;
 
         $f = $user->father;
         $m = $user->mother;
-        $childs = $user->childs;
 
         while( !empty($f) ){
             array_push($fathers,$f) ;
@@ -127,27 +135,18 @@ class UsersController extends Controller
             $m = $m->mother;
         }
 
-        foreach($childs as $child){
-            array_push($children,$child) ;
-        }
+        $this->findChilds($user) ;
 
-        $var = [
+        $tree = [
             'user' => $user,
             'fathers' => $fathers,
             'mothers' => $mothers,
-            'children' => $children
+            'children' => $this->grand_children
         ];
 
-        return $var;
-
-        dd(  $var  ) ;
-
-        dd( end($fathers)->name ) ;
-
-        dd($user->name , $user->father->father->father->name) ;
-        
-        return view('users.tree', compact('user'));
+        return $tree;
     }
+    
 
     /**
      * Show user death info.

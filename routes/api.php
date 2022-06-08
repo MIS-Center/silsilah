@@ -38,6 +38,8 @@ $api->version('v1', ['middleware' => ['api','cors']], function($api) {
             $api->get('users/{user}', 'UsersController@show');
             $api->get('users/{user}/chart', 'UsersController@chart') ;
             $api->get('users/{user}/tree', 'UsersController@tree') ;
+            $api->get('users/{user}/grandtree', 'UsersController@grandtree') ;
+
             $api->get('users/{user}/death', 'UsersController@death') ;
             $api->patch('users/{user}/photo-upload', 'UsersController@photoUpload') ;
             $api->patch('users/{user}', 'UsersController@update') ;

@@ -39,6 +39,9 @@ Route::get('users/{user}/death', 'UsersController@death')->name('users.death');
 Route::patch('users/{user}/photo-upload', 'UsersController@photoUpload')->name('users.photo-upload');
 Route::delete('users/{user}', 'UsersController@destroy')->name('users.destroy');
 
+Route::get('users/{user}/grandtree', 'UsersController@grandtree')->name('users.grandtree');
+
+
 Route::get('users/{user}/marriages', 'UserMarriagesController@index')->name('users.marriages');
 
 Route::get('birthdays', 'BirthdayController@index')->name('birthdays.index');

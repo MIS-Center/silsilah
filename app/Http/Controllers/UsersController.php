@@ -124,7 +124,6 @@ class UsersController extends Controller
 
         $f = $user->father;
         $m = $user->mother;
-        $grand_father = $user ;
 
         while( !empty($f) ){
             array_push($fathers,$f) ;
@@ -139,7 +138,7 @@ class UsersController extends Controller
             $m = $m->mother;
         }
 
-        $this->findChilds($grand_father) ;
+        $this->findChilds($user) ;
 
         $tree = [
             'user' => $user,
@@ -151,6 +150,41 @@ class UsersController extends Controller
         return $tree;
     }
     
+
+    
+    /**
+     * Show user grand family tree. 
+     *
+     * @param  \App\User  $user
+     * @return \Illuminate\View\View
+     */
+    public function grandtree(User $user)
+    {
+        $fathers = [] ;
+
+        $f = $user->father;
+        $grand_father = $user ;
+
+        while( !empty($f) ){
+            array_push($fathers,$f) ;
+            $f = $f->father;
+            if(!empty($f)){
+                $grand_father = $f;
+            }
+        }
+
+        $this->findChilds($grand_father) ;
+
+        $tree = [
+            'user' => $user,
+            'grand_father' => $grand_father,
+            'children' => $this->grand_children
+        ];
+
+        return $tree;
+    }
+
+
 
     /**
      * Show user death info.

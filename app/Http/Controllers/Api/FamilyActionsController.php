@@ -120,7 +120,7 @@ class FamilyActionsController extends Controller
 
         \DB::commit();
 
-        return back();
+        return $child;
     }
 
     /**

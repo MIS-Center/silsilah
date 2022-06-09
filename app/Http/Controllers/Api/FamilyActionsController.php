@@ -84,7 +84,6 @@ class FamilyActionsController extends Controller
      */
     public function addChild(Request $request, User $user)
     {
-        dd($request) ;
 
         $request->validate([
             'add_child_name'        => 'required|string|max:255',

@@ -92,6 +92,10 @@ class FamilyActionsController extends Controller
             'add_child_birth_order' => 'nullable|numeric',
         ]);
 
+        if(!empty($request->get('selectedId'))){
+            $user = User::find($request->get('selectedId'));
+        }
+
         $child = new User;
         $child->id = Uuid::uuid4()->toString();
         $child->name = $request->get('add_child_name');

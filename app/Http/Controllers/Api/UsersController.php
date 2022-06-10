@@ -277,7 +277,7 @@ class UsersController extends Controller
     {
         // dd($request) ;
 
-        $this->authorize('delete', $user);
+        //    $this->authorize('delete', $user);
 
         if ($request->has('replace_delete_button')) {
             $attributes = $request->validate([

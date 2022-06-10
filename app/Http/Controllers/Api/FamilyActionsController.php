@@ -19,11 +19,14 @@ class FamilyActionsController extends Controller
      */
     public function setFather(Request $request, User $user)
     {
-        dd($request) ;
         $request->validate([
             'set_father_id' => 'nullable',
             'set_father'    => 'required_without:set_father_id|max:255',
         ]);
+
+        if(!empty($request->get('selectedId'))){
+            $user = User::find($request->get('selectedId'));
+        }
 
         if ($request->get('set_father_id')) {
             $user->father_id = $request->get('set_father_id');

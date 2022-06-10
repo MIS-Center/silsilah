@@ -300,10 +300,16 @@ class UsersController extends Controller
             'user_id' => 'required',
         ]);
 
+        if(!empty($request->get('selectedId'))){
+            $user = User::find($request->get('selectedId'));
+        }
+
         if ($request->get('user_id') == $user->id && $user->delete()) {
+            return 200 ;
             return redirect()->route('users.search');
         }
 
+        return 500 ;
         return back();
     }
 

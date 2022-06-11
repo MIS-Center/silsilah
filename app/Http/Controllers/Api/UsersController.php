@@ -177,10 +177,11 @@ class UsersController extends Controller
 
         while( !empty($f) ){
             array_push($fathers,$f) ;
-            $f = $f->father;
+           
             if(!empty($f)){
                 $grand_father = $f;
             }
+            $f = $f->father;
         }
 
         $this->findChilds($grand_father) ;

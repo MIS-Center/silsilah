@@ -44,7 +44,7 @@ class UsersController extends Controller
                 ->orderBy('name', 'asc')
                 ->paginate(24);
         }
-        dd($users) ;
+        return $users;
         return view('users.search', compact('users'));
     }
 

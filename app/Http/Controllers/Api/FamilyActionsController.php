@@ -37,7 +37,7 @@ class FamilyActionsController extends Controller
             $father->name = $request->get('set_father');
             $father->nickname = $request->get('set_father');
             $father->gender_id = 1;
-            $father->manager_id = $user->id;
+            $father->manager_id = auth()->id();
 
             $user->setFather($father);
         }
@@ -108,7 +108,7 @@ class FamilyActionsController extends Controller
         $child->gender_id = $request->get('add_child_gender_id');
         $child->parent_id = $request->get('add_child_parent_id');
         $child->birth_order = $request->get('add_child_birth_order');
-        $child->manager_id = $user->id;
+        $child->manager_id = auth('api')->id();
 
         \DB::beginTransaction();
         $child->save();

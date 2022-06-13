@@ -37,7 +37,7 @@ class FamilyActionsController extends Controller
             $father->name = $request->get('set_father');
             $father->nickname = $request->get('set_father');
             $father->gender_id = 1;
-            $father->manager_id = auth()->id();
+            $father->manager_id = auth('api')->id();
 
             $user->setFather($father);
         }

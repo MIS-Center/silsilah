@@ -84,8 +84,9 @@ class AuthController extends Controller
         $user->save();
 
         $credentials = ['email'=>$data['email'], 'password'=> $data['password']];
-        // dd($credentials);
-        $token = JWTAuth::attempt($credentials);
+
+        $token = $this->login($credentials);
+       // $token = JWTAuth::attempt($credentials);
 
         $success['token'] = $token;
         return response()->json([
@@ -142,15 +143,25 @@ class AuthController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function login()
+    public function login($credentials =null)
     {
-        $credentials = request(['email', 'password']);
+        $token = null;
+        if(empty($credentials)){
+            $credentials = request(['email', 'password']);
+            if (! $token = auth('api')->attempt($credentials)) {
+                return response()->json(['error' => 'Unauthorized'], 401);
+            }
+    
+            return $this->respondWithToken($token);
+        }
 
         if (! $token = auth('api')->attempt($credentials)) {
             return response()->json(['error' => 'Unauthorized'], 401);
         }
 
-        return $this->respondWithToken($token);
+        return $token;
+
+
     }
 
     /**

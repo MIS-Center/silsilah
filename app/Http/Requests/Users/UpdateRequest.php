@@ -53,6 +53,12 @@ class UpdateRequest extends FormRequest
             'cemetery_location_address'   => 'nullable|string|max:255',
             'cemetery_location_latitude'  => 'required_with:cemetery_location_longitude|nullable|string|max:255',
             'cemetery_location_longitude' => 'required_with:cemetery_location_latitude|nullable|string|max:255',
+
+            'jobtitle'        => 'nullable|string|max:255',
+            'political_party'        => 'nullable|string|max:255',
+            'educational'        => 'nullable|string|max:255',
+            'properties'        => 'nullable|string|max:255',
+
         ];
     }
 
@@ -69,6 +75,8 @@ class UpdateRequest extends FormRequest
         $formData = parent::validated();
 
         $formData['yod'] = $this->getYod($formData);
+        $formData['yob'] = $this->getYob($formData);
+
         $formData['yob'] = $this->getYob($formData);
 
         if (isset($formData['password']) && $formData['password']) {

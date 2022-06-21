@@ -251,11 +251,9 @@ class UsersController extends Controller
      */
     public function update(UpdateRequest $request, User $user)
     {
-        //dd($request) ;
         $userAttributes = $request->validated();
         $user->update($userAttributes);
         $userAttributes = collect($userAttributes);
-
         $this->updateUserMetadata($user, $userAttributes);
 
         return response()->json([

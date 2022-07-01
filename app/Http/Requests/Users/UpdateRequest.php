@@ -14,6 +14,7 @@ class UpdateRequest extends FormRequest
      */
     public function authorize()
     {
+        return auth('api')->check() ;
         // added by akkam to handle api updateRequest
         if(auth('api')->check()){
             return auth('api')->user()->can(

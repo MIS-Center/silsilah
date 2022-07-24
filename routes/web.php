@@ -21,6 +21,8 @@ Route::group(['middleware' => 'auth'], function () {
 });
 
 Route::get('home', 'HomeController@index')->name('home');
+Route::get('rested', 'HomeController@rested')->name('rested');
+
 Route::get('profile', 'HomeController@index')->name('profile');
 Route::post('family-actions/{user}/set-father', 'FamilyActionsController@setFather')->name('family-actions.set-father');
 Route::post('family-actions/{user}/set-mother', 'FamilyActionsController@setMother')->name('family-actions.set-mother');

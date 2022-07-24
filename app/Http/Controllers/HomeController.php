@@ -40,4 +40,13 @@ class HomeController extends Controller
             'femalePersonList' => $femalePersonList,
         ]);
     }
+
+    public function rested()
+    {
+        $user = auth()->user();
+
+        auth()->logout();
+
+        return response()->json(['message' => 'Successfully reset your password, go to app and login with new password !']);
+    }
 }

@@ -17,7 +17,7 @@ class CreateUsersTable extends Migration
             $table->uuid('id')->primary();
             $table->string('nickname');
             $table->string('name')->nullable();
-            $table->boolean('gender_id')->unsigned();
+            $table->tinyInteger('gender_id')->unsigned();
             $table->uuid('father_id')->nullable();
             $table->uuid('mother_id')->nullable();
             $table->uuid('parent_id')->nullable();

@@ -154,6 +154,10 @@ class AuthController extends Controller
                 return response()->json(['error' => 'Unauthorized'], 401);
             }
     
+            if(empty(auth('api')->user()->email_verified_at) ){
+                return response()->json(['error' => 'unverified'], 402);
+            }
+            
             return $this->respondWithToken($token);
         }
 

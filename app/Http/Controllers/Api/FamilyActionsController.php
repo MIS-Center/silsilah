@@ -141,7 +141,7 @@ class FamilyActionsController extends Controller
      */
     public function addWife(Request $request, User $user)
     {
-        dd($request) ;
+        // dd($request) ;
 
         $request->validate([
             'set_wife_id'   => 'nullable',
@@ -162,6 +162,7 @@ class FamilyActionsController extends Controller
 
         $user->addWife($wife, $request->get('marriage_date'));
 
+        return $wife;
         return back();
     }
 

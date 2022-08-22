@@ -68,8 +68,8 @@ class UsersController extends Controller
                 ->paginate(24);
         }else{
             $users = User::Where('gender_id', 2)
-                ->orderBy('name', 'asc')
-                ->paginate(24);
+            ->orderBy('name', 'asc')
+            ->paginate(24);
         }
         return $users;
         return view('users.search', compact('users'));

@@ -67,7 +67,7 @@ class UsersController extends Controller
                 ->orderBy('name', 'asc')
                 ->paginate(24);
         }else{
-            $users = User::Where('gender_id', 2)
+            $users = User::all()
             ->orderBy('name', 'asc')
             ->paginate(24);
         }

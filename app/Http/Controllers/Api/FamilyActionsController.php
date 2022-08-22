@@ -56,8 +56,6 @@ class FamilyActionsController extends Controller
      */
     public function setMother(Request $request, User $user)
     {
-        dd($request) ;
-
         $request->validate([
             'set_mother_id' => 'nullable',
             'set_mother'    => 'required_without:set_mother_id|max:255',
@@ -76,6 +74,7 @@ class FamilyActionsController extends Controller
 
             $user->setMother($mother);
         }
+        return $mother;
 
         return back();
     }

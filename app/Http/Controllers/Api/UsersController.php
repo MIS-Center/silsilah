@@ -69,6 +69,7 @@ class UsersController extends Controller
                 ->paginate(24);
         }else{
             $users = User::all()
+                ->where('gender_id', 2)
                 ->where('name', 'like', '%'.$q.'%')
                 ->orWhere('nickname', 'like', '%'.$q.'%')
                 ->orderBy('name', 'asc')

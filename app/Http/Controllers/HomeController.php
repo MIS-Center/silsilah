@@ -25,11 +25,9 @@ class HomeController extends Controller
     {
         $user = auth()->user();
 
-        $users = $user->wifes()
-
-
-            ->orderBy('name', 'asc')
-            ->paginate(24);
+        $users = User::Where('gender_id', 2)
+        ->orderBy('name', 'asc')
+        ->paginate(24);
 dd($users);
 
 dd($user->wifes);

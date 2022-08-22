@@ -59,7 +59,7 @@ class UsersController extends Controller
         $q = $request->get('q');
         $users = [];
 
-        if (false) {
+        if ($q) {
             $users = User::with('father', 'mother')->where('gender_id', 2)->where(function ($query) use ($q) {
                 $query->where('name', 'like', '%'.$q.'%');
                 $query->orWhere('nickname', 'like', '%'.$q.'%');
@@ -67,8 +67,7 @@ class UsersController extends Controller
                 ->orderBy('name', 'asc')
                 ->paginate(24);
         }else{
-            $users = User::all()
-                ->where('gender_id', 2)
+            $users = User::Where('gender_id', 2)
                 ->orderBy('name', 'asc')
                 ->paginate(24);
         }

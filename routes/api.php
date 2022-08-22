@@ -35,6 +35,9 @@ $api->version('v1', ['middleware' => ['api','cors']], function($api) {
         $api->group([
         ], function ($api) {
             $api->get('users/profile-search', 'UsersController@search');
+            $api->get('users/female-search', 'UsersController@searchFemales');
+            $api->get('users/wives-search', 'UsersController@searchWives');
+
             $api->get('users/{user}', 'UsersController@show');
             $api->get('users/{user}/chart', 'UsersController@chart') ;
             $api->get('users/{user}/tree', 'UsersController@tree') ;

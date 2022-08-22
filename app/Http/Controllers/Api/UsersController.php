@@ -48,6 +48,65 @@ class UsersController extends Controller
         return view('users.search', compact('users'));
     }
 
+        /**
+     * Search user by keyword.
+     *
+     * @return \Illuminate\View\View
+     */
+    public function searchFemales(Request $request)
+    {
+        
+        $q = $request->get('q');
+        $users = [];
+
+        if ($q) {
+            $users = User::with('father', 'mother')->where(function ($query) use ($q) {
+                $query->where('gender_id', 2);
+                $query->where('name', 'like', '%'.$q.'%');
+                $query->orWhere('nickname', 'like', '%'.$q.'%');
+            })
+                ->orderBy('name', 'asc')
+                ->paginate(24);
+        }else{
+            $users = User::all()
+                ->where('name', 'like', '%'.$q.'%')
+                ->orWhere('nickname', 'like', '%'.$q.'%')
+                ->orderBy('name', 'asc')
+                ->paginate(24);
+        }
+        return $users;
+        return view('users.search', compact('users'));
+    }
+
+        /**
+     * Search user by keyword.
+     *
+     * @return \Illuminate\View\View
+     */
+    public function searchWives(Request $request)
+    {
+        $request->validate([
+            'user_id' => 'required',
+        ]);
+
+        if(!empty($request->get('user_id'))){
+            $user = User::find($request->get('user_id'));
+        }
+
+        $q = $request->get('q');
+        $users = [];
+
+        if ($q) {
+            $users = $user->wifes()
+                ->where('name', 'like', '%'.$q.'%')
+                ->orWhere('nickname', 'like', '%'.$q.'%')
+                ->orderBy('name', 'asc')
+                ->paginate(24);
+        }
+        return $users;
+        return view('users.search', compact('users'));
+    }
+
     /**
      * Display the specified User.
      *

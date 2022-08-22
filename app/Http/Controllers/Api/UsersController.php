@@ -94,11 +94,18 @@ class UsersController extends Controller
         $users = [];
 
         if ($q) {
-            $users = $user->wifes()
-                ->where('name', 'like', '%'.$q.'%')
-                ->orWhere('nickname', 'like', '%'.$q.'%')
+            $users = $user->wifes()->where(function ($query) use ($q) {
+                $query->where('name', 'like', '%'.$q.'%');
+                $query->orWhere('nickname', 'like', '%'.$q.'%');
+            })
                 ->orderBy('name', 'asc')
                 ->paginate(24);
+
+            // $users = $user->wifes()
+            //     ->where('name', 'like', '%'.$q.'%')
+            //     ->orWhere('nickname', 'like', '%'.$q.'%')
+            //     ->orderBy('name', 'asc')
+            //     ->paginate(24);
         }else{
             $users = $user->wifes()
             ->orderBy('name', 'asc')

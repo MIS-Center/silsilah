@@ -74,7 +74,7 @@ class FamilyActionsController extends Controller
 
             $user->setMother($mother);
         }
-        return $mother;
+        return $user;
 
         return back();
     }

@@ -99,6 +99,10 @@ class UsersController extends Controller
                 ->orWhere('nickname', 'like', '%'.$q.'%')
                 ->orderBy('name', 'asc')
                 ->paginate(24);
+        }else{
+            $users = $user->wifes()
+            ->orderBy('name', 'asc')
+            ->paginate(24);
         }
         return $users;
         return view('users.search', compact('users'));

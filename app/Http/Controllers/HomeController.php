@@ -25,12 +25,6 @@ class HomeController extends Controller
     {
         $user = auth()->user();
 
-        $users = User::Where('gender_id', 2)
-        ->orderBy('name', 'asc')
-        ->paginate(24);
-dd($users);
-
-dd($user->wifes);
         $usersMariageList = [];
         foreach ($user->couples as $spouse) {
             $usersMariageList[$spouse->pivot->id] = $user->name.' & '.$spouse->name;

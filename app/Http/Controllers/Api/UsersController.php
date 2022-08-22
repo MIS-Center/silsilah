@@ -60,8 +60,7 @@ class UsersController extends Controller
         $users = [];
 
         if ($q) {
-            $users = User::with('father', 'mother')->where(function ($query) use ($q) {
-                $query->where('gender_id', 2);
+            $users = User::with('father', 'mother')->where('gender_id', 2)->where(function ($query) use ($q) {
                 $query->where('name', 'like', '%'.$q.'%');
                 $query->orWhere('nickname', 'like', '%'.$q.'%');
             })

@@ -165,6 +165,37 @@ class FamilyActionsController extends Controller
         return back();
     }
 
+        /**
+     * Add wife for male user.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\User  $user
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function divorce(Request $request, User $user)
+    {
+        // dd($request) ;
+
+        $request->validate([
+            'wife_id'   => 'required',
+            'husband_id'      => 'required',
+        ]);
+
+
+        $wife = User::findOrFail($request->get('wife_id'));
+        $husband = User::findOrFail($request->get('husband_id'));
+        $couple = Couple::where('husband_id', $husband->id)
+            ->where('wife_id', $wife->id)
+            ->first();
+
+        if(!empty($wife) && !empty($husband) &&  $couple->delete()){
+            return 200 ;
+        }else{
+            return 500 ;
+        }
+
+    }
+
     /**
      * Add husband for female user.
      *

@@ -69,7 +69,8 @@ $api->version('v1', ['middleware' => ['api','cors']], function($api) {
             $api->post('family-actions/{user}/add-wife', 'FamilyActionsController@addWife');
             $api->post('family-actions/{user}/add-husband', 'FamilyActionsController@addHusband');
             $api->post('family-actions/{user}/set-parent', 'FamilyActionsController@setParent');
-            
+            $api->post('family-actions/{user}/divorce', 'FamilyActionsController@divorce');
+
         });
 
     });

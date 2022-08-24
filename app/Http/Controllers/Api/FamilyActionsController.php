@@ -79,6 +79,33 @@ class FamilyActionsController extends Controller
         return back();
     }
 
+        /**
+     * get mother for a user.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\User  $user
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function getMother(Request $request)
+    {
+        $user = User::find($request->user);
+
+        if(empty($user->mother_id)){
+            dd($user->mother_id) ;
+            return null;
+        }
+
+        $mother = User::find($user->mother_id);
+
+
+        if(!empty($mother)){
+            return $mother;
+        }
+        return null;
+
+        return back();
+    }
+
     /**
      * Add child for a user.
      *

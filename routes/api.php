@@ -70,7 +70,7 @@ $api->version('v1', ['middleware' => ['api','cors']], function($api) {
             $api->post('family-actions/{user}/add-husband', 'FamilyActionsController@addHusband');
             $api->post('family-actions/{user}/set-parent', 'FamilyActionsController@setParent');
             $api->post('family-actions/{user}/divorce', 'FamilyActionsController@divorce');
-
+            $api->get('family-actions/{user}/get-mother', 'FamilyActionsController@getMother');
         });
 
     });

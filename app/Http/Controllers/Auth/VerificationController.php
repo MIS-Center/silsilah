@@ -102,16 +102,15 @@ class VerificationController extends Controller
     public function my_resend(Request $request)
     {
 
-        $user = User::find($request->email);
+        // dd($request->email) ;
+        $user = User::Where("email",$request->email)->first() ;
         
         if(empty($user)){
             return "somthing wrong has been happened !";
         }
 
         if ($user->hasVerifiedEmail()) {
-            return $request->wantsJson()
-                        ? new JsonResponse([], 204)
-                        : redirect($this->redirectPath());
+            return "already verified";
         }
 
         $user->sendEmailVerificationNotification();

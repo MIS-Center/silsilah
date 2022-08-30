@@ -80,6 +80,8 @@ class VerificationController extends Controller
         if ($user->markEmailAsVerified())
             event(new Verified($user));
     
+
+        return "done";
         return redirect($this->redirectPath())->with('verified', true);
 
 

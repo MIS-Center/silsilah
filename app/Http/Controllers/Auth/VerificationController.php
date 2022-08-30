@@ -10,6 +10,7 @@ use Illuminate\Foundation\Auth\VerifiesEmails;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Auth\Events\Verified;
 use Illuminate\Http\JsonResponse;
+use App\User;
 
 class VerificationController extends Controller
 {
@@ -71,11 +72,7 @@ class VerificationController extends Controller
     public function verify(Request $request)
     {
 
-        dd($request->email , $request->password , $request->user() , $request);
-        // $credentials = ['email'=>$data['email'], 'password'=> $data['password']];
-
-        // $token = $this->login($credentials);
-
+        $user = User::find($request->route('id'));
 
         if (! hash_equals((string) $request->route('id'), (string) $request->user()->getKey())) {
             throw new AuthorizationException;

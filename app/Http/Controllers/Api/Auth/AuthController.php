@@ -9,6 +9,9 @@ use Illuminate\Support\Facades\Validator;
 use Ramsey\Uuid\Uuid;
 use Illuminate\Http\Request;
 use JWTAuth;
+use Illuminate\Auth\Events\Registered;
+
+
 class AuthController extends Controller
 {
     /*
@@ -83,6 +86,8 @@ class AuthController extends Controller
 
         $user->manager_id = $user->id;
         $user->save();
+
+        event(new Registered($user));
 
         $credentials = ['email'=>$data['email'], 'password'=> $data['password']];
 

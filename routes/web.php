@@ -22,10 +22,10 @@ Route::group(['middleware' => 'auth'], function () {
     * Verification Routes
     */
     Route::get('/email/verify', 'Auth\VerificationController@show')->name('verification.notice');
-    Route::get('/email/verify/{id}/{hash}', 'Auth\VerificationController@verify')->name('verification.verify')->middleware(['signed']);
     Route::post('/email/resend', 'Auth\VerificationController@resend')->name('verification.resend');
     
 });
+Route::get('/email/verify/{id}/{hash}', 'Auth\VerificationController@verify')->name('verification.verify')->middleware(['signed']);
 
 Route::group(['middleware' => ['verified'] ], function () {
     

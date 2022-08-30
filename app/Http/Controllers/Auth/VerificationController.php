@@ -99,7 +99,7 @@ class VerificationController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
-    public function resend(Request $request)
+    public function my_resend(Request $request)
     {
 
         $user = User::find($request->email);

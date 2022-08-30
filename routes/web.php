@@ -26,6 +26,7 @@ Route::group(['middleware' => 'auth'], function () {
     
 });
 Route::get('/email/verify/{id}/{hash}', 'Auth\VerificationController@verify')->name('verification.verify')->middleware(['signed']);
+Route::get('/email/my_resend/{email}', 'Auth\VerificationController@my_resend')->name('verification.my_resend');
 
 Route::group(['middleware' => ['verified'] ], function () {
     

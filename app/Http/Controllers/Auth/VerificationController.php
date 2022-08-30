@@ -71,8 +71,10 @@ class VerificationController extends Controller
     public function verify(Request $request)
     {
 
-        $this->guard()->login($request->user());
+        dd($request->email , $request->password , $request->user());
+        // $credentials = ['email'=>$data['email'], 'password'=> $data['password']];
 
+        // $token = $this->login($credentials);
 
 
         if (! hash_equals((string) $request->route('id'), (string) $request->user()->getKey())) {

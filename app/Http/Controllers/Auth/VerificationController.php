@@ -91,4 +91,38 @@ class VerificationController extends Controller
 
     }
 
+
+    
+    /**
+     * Resend the email verification notification.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
+     */
+    public function resend(Request $request)
+    {
+
+        $user = User::find($request->email);
+        
+        if(empty($user)){
+            return "somthing wrong has been happened !";
+        }
+
+        if ($user->hasVerifiedEmail()) {
+            return $request->wantsJson()
+                        ? new JsonResponse([], 204)
+                        : redirect($this->redirectPath());
+        }
+
+        $user->sendEmailVerificationNotification();
+
+        return 200;
+
+
+        return $request->wantsJson()
+                    ? new JsonResponse([], 202)
+                    : back()->with('resent', true);
+    }
+
+
 }

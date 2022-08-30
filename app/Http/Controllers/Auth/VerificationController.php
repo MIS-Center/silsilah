@@ -71,7 +71,7 @@ class VerificationController extends Controller
     public function verify(Request $request)
     {
 
-        dd($request->email , $request->password , $request->user());
+        dd($request->email , $request->password , $request->user() , $request);
         // $credentials = ['email'=>$data['email'], 'password'=> $data['password']];
 
         // $token = $this->login($credentials);

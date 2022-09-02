@@ -256,7 +256,7 @@ class UsersController extends Controller
         // dd($user->wifes()->get()->pluck('name')->toArray('name') );
 
         if(!empty($user->wifes()->get())){
-            $user->wife_id = "aboura" ;
+            $grand_father->wife_id = "aboura" ;
         }
 
         $tree = [

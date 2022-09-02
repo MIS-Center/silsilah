@@ -115,7 +115,7 @@ class VerificationController extends Controller
 
         $user->sendEmailVerificationNotification();
 
-        return 200;
+        return "done";
 
 
         return $request->wantsJson()

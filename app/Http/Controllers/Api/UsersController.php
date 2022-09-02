@@ -253,6 +253,12 @@ class UsersController extends Controller
 
         $this->findChilds($grand_father) ;
 
+        // dd($user->wifes()->get()->pluck('name')->toArray('name') );
+
+        if(!empty($user->wifes()->get())){
+            $user->wife_id = "aboura" ;
+        }
+
         $tree = [
             'user' => $user,
             'grand_father' => $grand_father,

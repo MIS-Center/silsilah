@@ -258,15 +258,19 @@ class UsersController extends Controller
 
         // dd($user->wifes()->get()->pluck('name')->toArray('name') );
 
-        $wives = $user->wifes()->get() ;
-        $this->wives = [];
-        if(!empty($wives)){
-            foreach($wives as $wife){
-                array_push($this->wives,$wife);
+        foreach($this->grand_children as $child){
+            $wives = $child->wifes()->get() ;
+            $this->wives = [];
+            if(!empty($wives)){
+                foreach($wives as $wife){
+                    array_push($this->wives,$wife);
+                }
+                $child->wife_id = $wives;
             }
-            $user->wife_id = $wives;
+            $this->wives = [];
         }
-        $this->wives = [];
+        
+
 
         // $grand_father_wives = $grand_father->wifes()->get() ;
         

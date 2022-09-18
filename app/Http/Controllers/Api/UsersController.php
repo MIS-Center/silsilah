@@ -181,7 +181,10 @@ class UsersController extends Controller
 
 
     public $grand_children = [] ;
+    public $wives = [] ;
+    public $grand_father_wives = [] ;
 
+    
     function findChilds(User $user){
         $childs = $user->childs;
         foreach($childs as $child){
@@ -255,9 +258,24 @@ class UsersController extends Controller
 
         // dd($user->wifes()->get()->pluck('name')->toArray('name') );
 
-        if(!empty($user->wifes()->get())){
-            $grand_father->wife_id = "aboura" ;
+        $wives = $user->wifes()->get() ;
+        
+        if(!empty($wives)){
+            foreach($wives as $wife){
+                array_push($this->wives,$wife);
+            }
+            $user->wife_id = $wives;
         }
+
+        // $grand_father_wives = $grand_father->wifes()->get() ;
+        
+        // if(!empty($grand_father_wives)){
+        //     foreach($grand_father_wives as $wife){
+        //         array_push($grand_father->wife_id,$wife);
+        //     }
+        // }
+
+        // $grand_father->wife_id = $grand_father->wifes()->get() ;
 
         $tree = [
             'user' => $user,

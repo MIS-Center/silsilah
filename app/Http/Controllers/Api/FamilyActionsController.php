@@ -116,8 +116,8 @@ class FamilyActionsController extends Controller
      */
     public function separateMother(Request $request)
     {
-        $user = User::find($request->memeber_id);
-        // dd($user->father_id) ;
+        $user = User::find($request->user);
+        // dd($request) ;
         if(empty($user->mother_id)){
             // dd($user->mother_id) ;
             return null;

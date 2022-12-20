@@ -258,6 +258,19 @@ class UsersController extends Controller
 
         // dd($user->wifes()->get()->pluck('name')->toArray('name') );
 
+        // find grand_father wives
+        $wives = $grand_father->wifes()->get() ;
+        $this->wives = [];
+        if(!empty($wives)){
+            foreach($wives as $wife){
+                array_push($this->wives,$wife);
+            }
+            $grand_father->wife_id = $wives;
+        }
+        $this->wives = [];
+        
+
+        // find children wives
         foreach($this->grand_children as $child){
             $wives = $child->wifes()->get() ;
             $this->wives = [];
@@ -347,10 +360,7 @@ class UsersController extends Controller
      */
     public function update(UpdateRequest $request, User $user)
     {
-
-        
         $userAttributes = $request->validated();
-
 
           
           $user->update($userAttributes);

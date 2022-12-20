@@ -209,6 +209,8 @@ class UsersController extends Controller
      */
     public function edit(User $user)
     {
+
+
         $this->authorize('edit', $user);
 
         $replacementUsers = [];
@@ -241,7 +243,10 @@ class UsersController extends Controller
      */
     public function update(UpdateRequest $request, User $user)
     {
+        dd(111);
+
         $userAttributes = $request->validated();
+
         $user->update($userAttributes);
         $userAttributes = collect($userAttributes);
 

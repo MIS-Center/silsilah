@@ -127,6 +127,8 @@ class UsersController extends Controller
         $allMariageList = $this->getAllMariageList();
         $malePersonList = $this->getPersonList(1);
         $femalePersonList = $this->getPersonList(2);
+        return response()->json($user);
+
         dd($user) ;
         return view('users.show', [
             'user'             => $user,
@@ -268,6 +270,7 @@ class UsersController extends Controller
             $grand_father->wife_id = $wives;
         }
         $this->wives = [];
+        // return $grand_father ;
         
 
         // find children wives

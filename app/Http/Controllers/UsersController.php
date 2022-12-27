@@ -243,7 +243,7 @@ class UsersController extends Controller
      */
     public function update(UpdateRequest $request, User $user)
     {
-        dd(111);
+        // dd(111);
 
         $userAttributes = $request->validated();
 

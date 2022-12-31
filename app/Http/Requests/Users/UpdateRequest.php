@@ -12,7 +12,7 @@ class UpdateRequest extends FormRequest
      *
      * @return bool
      */
-    public function authorizee()
+    public function authorize()
     {
         return auth('api')->check() ;
         // added by akkam to handle api updateRequest
@@ -39,9 +39,9 @@ class UpdateRequest extends FormRequest
             'nickname'    => 'sometimes|required|string|max:255',
             'name'        => 'sometimes|required|string|max:255',
             'gender_id'   => 'sometimes|required|numeric',
-            'dob'         => 'nullable',
+            'dob'         => 'nullable|date|date_format:Y-m-d',
             'yob'         => 'nullable|date_format:Y',
-            'dod'         => 'nullable',
+            'dod'         => 'nullable|date|date_format:Y-m-d',
             'yod'         => 'nullable|date_format:Y',
             'phone'       => 'nullable|string|max:255',
             'address'     => 'nullable|string|max:255',
